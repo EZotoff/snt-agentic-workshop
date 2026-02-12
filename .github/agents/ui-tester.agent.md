@@ -2,7 +2,7 @@
 name: ui-tester
 description: Visual QA specialist. Takes pixel-level screenshots and verifies visual correctness that @ui-dev cannot see.
 model: GPT-5.3-Codex
-tools: ['search', 'execute/runInTerminal', 'playwright']
+tools: ['search', 'execute/runInTerminal', 'playwright/*']
 user-invokable: false
 ---
 
