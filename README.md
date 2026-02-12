@@ -4,7 +4,7 @@ Multi-agent AI development pipeline using GitHub Copilot agents + OpenSpec.
 
 ## What's Inside
 
-- `.github/agents/` — 12 specialized AI agents (orchestrator, planner, devs, testers, etc.)
+- `.github/agents/` — 8 specialized AI agents (orchestrator, advisor, devs, testers, writer)
 - `openspec/` — Spec-driven development framework config
   - `AGENTS.md` — Instructions for AI assistants
   - `project.md` — Project context template (fill this first!)
@@ -21,7 +21,7 @@ Multi-agent AI development pipeline using GitHub Copilot agents + OpenSpec.
 ### Step 1: Set up your project context
 Fill in `openspec/project.md` with your project details.
 - Edit manually, OR
-- Ask an agent: `@planner Help me fill in openspec/project.md for a [describe project]`
+- Ask an agent: `@orchestrator Help me fill in openspec/project.md for a [describe project]`
 
 ### Step 2: Initialize OpenSpec
 ```bash
@@ -36,35 +36,31 @@ Tell the orchestrator what to build:
 ```
 
 The orchestrator will:
-1. Call `@planner` to create a proposal
-2. Call `@spec-writer` to write specifications
-3. Route implementation to `@junior-dev` or `@ui-dev`
-4. Verify with `@junior-tester` or `@ui-tester`
+1. Call `@advisor` to analyze requirements and propose a plan
+2. Call `@writer` to write specifications (if needed)
+3. Route implementation to `@junior-dev`, `@senior-dev`, or `@ui-dev`
+4. Verify with `@tester` or `@ui-tester`
 
 ## Agent Roster (Quick Reference)
 
 | Agent | Role |
 |-------|------|
 | `@orchestrator` | Central coordinator — routes work through the pipeline |
-| `@planner` | Analyzes requirements, creates proposals |
-| `@spec-writer` | Writes detailed specifications |
-| `@junior-dev` | Implements backend code |
-| `@ui-dev` | Implements UI/frontend |
-| `@senior-dev` | Debugs complex issues (escalation) |
-| `@junior-tester` | Verifies backend features |
-| `@ui-tester` | Visual QA with screenshots |
-| `@senior-tester` | Debugs test failures (escalation) |
-| `@scaffolder` | Creates boilerplate files |
-| `@deployer` | Handles deployment |
-| `@reporter` | Archives changes, updates docs |
+| `@advisor` | Analyzes requirements, designs architecture, debugs complex issues |
+| `@writer` | Documentation: OpenSpec proposals, specs, changelogs, reports |
+| `@senior-dev` | Complex implementation: architecture-heavy, cross-cutting code |
+| `@junior-dev` | Routine implementation: pattern-following, scaffolding, bulk coding |
+| `@tester` | User proxy: runs code, inspects outputs, reports honestly |
+| `@ui-dev` | Frontend implementation: HTML/CSS/JS components |
+| `@ui-tester` | Visual QA: screenshot-based verification |
 
 → See [`.github/agents/README.md`](.github/agents/README.md) for full details, workflow diagrams, and cost breakdown.
 
 ## How It Works
 
-The pipeline follows: Plan → Implement → Test → Deploy → Archive.
+The pipeline follows: Analyze → Implement → Test → Document.
 The `@orchestrator` coordinates everything — you just tell it what you want built.
-Junior agents try first; if they fail 5 times, seniors step in.
+Junior agents try first; if they fail 5 times, the advisor analyzes the issue and senior-dev fixes it.
 
 ## License
 

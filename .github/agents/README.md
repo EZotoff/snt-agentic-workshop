@@ -1,36 +1,21 @@
 # Multi-Agent Development Pipeline
 
-This directory contains specialized AI agents that work together to implement an autonomous development pipeline.
+This directory contains 8 specialized AI agents that work together to implement an autonomous development pipeline.
 
 ## Agent Roster
 
-### Tier 1: Coordination Layer
-| Agent | Model | Cost | Role |
-|-------|-------|------|------|
-| `@orchestrator` | `claude-opus-4.6` | 1x | Workflow coordination, phase management |
+The pipeline consists of the Orchestrator and 7 specialized worker agents.
 
-### Tier 2: Senior Specialists
-| Agent | Model | Cost | Role |
-|-------|-------|------|------|
-| `@planner` | `claude-opus-4.6` | 1x | Requirements analysis, architecture design |
-| `@senior-dev` | `claude-opus-4.6` | 1x | Complex debugging, junior escalations |
-| `@senior-tester` | `claude-opus-4.6` | 1x | Test strategy, exploratory testing |
-
-### Tier 3: Junior Workers
-| Agent | Model | Cost | Role |
-|-------|-------|------|------|
-| `@junior-dev` | `GPT-5.3-Codex` | 0.33x | Backend/pipeline implementation |
-| `@ui-dev` | `Gemini 3 Pro (Preview)` | 0.5x | UI/UX implementation (React, Tailwind) |
-| `@junior-tester` | `GPT-5.3-Codex` | 0.33x | Backend verification (user proxy) |
-| `@ui-tester` | `Gemini 3 Flash (Preview)` | 0.33x | Visual QA (pixel verification) |
-| `@deployer` | `claude-haiku-4.5` | 0.33x | Deployment operations |
-
-### Tier 4: Trivial Task Handlers
-| Agent | Model | Cost | Role |
-|-------|-------|------|------|
-| `@scaffolder` | `Raptor mini (Preview)` | 0x | Boilerplate file creation |
-| `@spec-writer` | `Gemini 3 Pro (Preview)` | 0x | Spec document writing |
-| `@reporter` | `Gemini 3 Flash (Preview)` | 0x | Documentation updates |
+| Agent | Model | Cost Tier | Role |
+|-------|-------|-----------|------|
+| `@orchestrator` | Claude Opus 4.6 | 1x | Central coordinator, phase management |
+| `@advisor` | Claude Opus 4.6 | 1x | Read-only thinker: analyzes requirements, designs architecture |
+| `@senior-dev` | Claude Opus 4.6 | 1x | Complex implementation, junior escalations |
+| `@ui-dev` | Gemini 3 Pro (Preview) | 0.5x | Frontend: HTML/CSS/JS implementation |
+| `@junior-dev` | GPT-5.3-Codex | 0.33x | Routine implementation: pattern-following code |
+| `@writer` | Gemini 3 Flash (Preview) | 0.33x | Documentation: proposals, specs, reports |
+| `@tester` | GPT-5.3-Codex | 0.33x | User proxy: runs code, verifies backend/logic |
+| `@ui-tester` | Gemini 3 Flash (Preview) | 0.33x | Visual QA: pixel-level screenshot verification |
 
 ## Workflow
 
@@ -40,101 +25,104 @@ User/Idea
     ▼
 @orchestrator ──► Coordinates development workflow
     │
-    │ ╔══════════════════════════════════════════════╗
-    │ ║ STAGE 1: Planning & Design                   ║
-    │ ╚══════════════════════════════════════════════╝
-    ├──► @planner ──► @spec-writer ──► Change Proposal
-    │         │
-    │         └──► Automated Validation
-    │         └──► User approval required
+    │ ╔══════════════════════════════════════════════════╗
+    │ ║ Phase 1: Analysis & Planning                     ║
+    │ ╚══════════════════════════════════════════════════╝
+    ├──► @advisor ──► Analysis & Architecture
+    │       │
+    │       └──► @writer ──► Specs & Proposals
     │
-    │ ╔══════════════════════════════════════════════╗
-    │ ║ STAGE 2: Implementation & Testing            ║
-    │ ╚══════════════════════════════════════════════╝
-    ├──► @scaffolder ──► @junior-dev ──► Implementation
-    │         │              │
-    │         │              └──► Updates task list
-    │         └──► (5x fail) ──► @senior-dev
+    │ ╔══════════════════════════════════════════════════╗
+    │ ║ Phase 2: Implementation (Parallel Execution)     ║
+    │ ╚══════════════════════════════════════════════════╝
+    ├──► @junior-dev  ──► Backend/Routine Logic
+    │       ║
+    │       ╠══ (+) Parallel Execution Supported
+    │       ║
+    ├──► @ui-dev      ──► Frontend Components
+    │       ║
+    │       ╚══ (or) @senior-dev ──► Complex Architecture
     │
-    ├──► @junior-tester + @ui-tester ──► Verification
-    │         │
-    │         └──► (5x fail) ──► @senior-tester
+    │ ╔══════════════════════════════════════════════════╗
+    │ ║ Phase 3: Verification                            ║
+    │ ╚══════════════════════════════════════════════════╝
+    ├──► @tester      ──► Functional Verification
+    │       ║
+    │       ╚══ (+) @ui-tester ──► Visual QA
     │
-    ├──► @deployer ──► Staging ──► Production
-    │
-    │ ╔══════════════════════════════════════════════╗
-    │ ║ STAGE 3: Delivery & Documentation            ║
-    │ ╚══════════════════════════════════════════════╝
-    └──► @reporter ──► Archive & Report
-              │
-              └──► Documentation updates
+    │ ╔══════════════════════════════════════════════════╗
+    │ ║ Phase 4: Documentation                           ║
+    │ ╚══════════════════════════════════════════════════╝
+    └──► @writer ──► Update Docs & Changelogs
 ```
 
 ## UI Development Workflow
 
-UI/UX work uses a specialized two-agent pattern:
+UI/UX work uses a specialized two-agent pattern to ensure visual quality:
 
 ```
 @orchestrator
     │
     ├──► @ui-dev (Gemini 3 Pro Preview)
     │       │
-    │       ├── Implements React/Tailwind components
+    │       ├── Implements frontend components
     │       ├── Verifies DOM structure via browser_snapshot
     │       └── ⚠️ CANNOT see screenshots (Gemini limitation)
     │
     └──► @ui-tester (Gemini 3 Flash Preview)
             │
             ├── Takes actual screenshots
-            ├── Runs 15-point Visual QA Checklist
-            ├── Verifies: colors, dark mode, spacing, responsive
-            └── Returns: PASS / PARTIAL / FAIL with evidence
+            ├── Verifies visual correctness (colors, layout, spacing)
+            └── Returns: PASS / FAIL with evidence
 ```
 
-**Why two agents?**
-- `@ui-dev` uses Gemini which excels at code generation but cannot process images
-- `@ui-tester` uses Gemini Flash which can see and analyze screenshots
-- Together they ensure both code quality AND visual correctness
+**Why this split?**
+- `@ui-dev` uses **Gemini 3 Pro (Preview)** which excels at generating HTML/CSS code.
+- `@ui-tester` uses **Gemini 3 Flash (Preview)** which can process images for visual QA.
+- Together they ensure code quality AND visual correctness.
 
-**8-Point Visual QA Checklist**:
-- Dark Mode Desktop: 8 checks (text, colors, spacing, images, icons, interactions, forms, layout)
-- Desktop only (1280px) — no responsive testing
-- Dark mode only — no light mode testing
+## Parallel Execution
+
+VS Code 1.109+ supports parallel subagent execution. The `@orchestrator` can call multiple agents simultaneously in the same response when tasks are independent (e.g., implementing backend and frontend features concurrently).
 
 ## Escalation Protocol (5x Rule)
 
-When a junior agent fails the same task 5 times:
-1. Junior reports escalation with error summary
-2. Orchestrator routes to corresponding senior
-3. Senior debugs and either fixes or provides guidance
-4. Work continues from resolution point
+If a worker agent fails to complete a task after 5 attempts, the Orchestrator escalates:
 
-## Usage
+- **junior-dev stuck 5x** → `@advisor` analyzes the error, then `@senior-dev` fixes it.
+- **tester stuck 5x** → `@advisor` debugs the test approach or data.
+- **ui-dev stuck 5x** → `@senior-dev` (if code issue) or `@advisor` (if design issue).
 
-### Direct orchestration
-```
-@orchestrator Help me implement a user login system with JWT
-```
+## Usage Examples
 
-### Create a new proposal
+**Start a new feature:**
 ```
-@planner I need to add two-factor authentication to the login flow
+@orchestrator Help me implement a user login system
 ```
 
-### Quick UI test
+**Request architectural review:**
 ```
-@ui-tester Navigate to http://localhost:3000/dashboard and verify the sidebar
+@advisor Review the architecture of the authentication module
 ```
 
-### Archive a completed feature
+**Draft a specification:**
 ```
-@reporter Summarize the changes made for the login system and update documentation
+@writer Create an OpenSpec proposal for the notification system
+```
+
+**Verify UI appearance:**
+```
+@ui-tester Navigate to http://localhost:3000 and verify the dashboard layout
 ```
 
 ## Cost Optimization
 
-Estimated cost per feature (typical complexity):
-- **With junior/senior layering**: ~10x equivalent requests
-- **All senior-level**: ~20x equivalent requests
-- **Savings**: 40-50%
+The roster relies on a heavy junior/senior split to optimize costs:
+- Routine tasks go to **0.33x** agents (`junior-dev`, `tester`).
+- Complex tasks go to **1x** agents (`senior-dev`, `advisor`).
+- **Savings**: This structure saves approximately **40-50%** compared to an all-senior roster.
 
+## Configuration Reference
+
+To enable this multi-agent system, ensure the following setting is active in VS Code:
+- `chat.customAgentInSubagent.enabled`: `true`
