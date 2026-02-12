@@ -2,7 +2,7 @@
 name: junior-dev
 description: Routine implementation specialist. Handles pattern-following code, scaffolding, bulk coding, and boilerplate. Cost-effective workhorse.
 model: GPT-5.3-Codex
-tools: ['edit', 'search', 'runCommands', 'usages', 'changes']
+tools: ['edit', 'search', 'execute/runInTerminal', 'search/usages', 'search/changes']
 user-invokable: false
 ---
 

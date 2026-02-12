@@ -2,7 +2,7 @@
 name: advisor
 description: Read-only thinker. Analyzes requirements, designs architecture, debugs complex issues, and provides guidance without modifying code.
 model: Claude Opus 4.6
-tools: ['search', 'usages', 'fetch', 'githubRepo', 'runCommands']
+tools: ['search', 'search/usages', 'web/fetch', 'web/githubRepo', 'execute/runInTerminal']
 user-invokable: false
 ---
 

@@ -2,7 +2,7 @@
 name: writer
 description: Documentation specialist. Writes OpenSpec proposals, spec deltas, changelogs, status reports, and project documentation.
 model: Gemini 3 Flash (Preview)
-tools: ['edit', 'search', 'runCommands', 'fetch']
+tools: ['edit', 'search', 'execute/runInTerminal', 'web/fetch']
 user-invokable: false
 ---
 

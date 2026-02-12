@@ -2,7 +2,7 @@
 name: tester
 description: User proxy and behavior verifier. Runs code like a user, inspects real outputs, and reports honestly whether features actually work.
 model: GPT-5.3-Codex
-tools: ['edit', 'search', 'runCommands', 'fetch']
+tools: ['edit', 'search', 'execute/runInTerminal', 'web/fetch']
 user-invokable: false
 ---
 

@@ -2,7 +2,7 @@
 name: senior-dev
 description: Complex implementation specialist. Handles architecture-heavy code, unfamiliar patterns, performance-critical work, and escalations from junior-dev.
 model: Claude Opus 4.6
-tools: ['edit', 'search', 'runCommands', 'usages', 'problems', 'changes', 'githubRepo']
+tools: ['edit', 'search', 'execute/runInTerminal', 'search/usages', 'read/problems', 'search/changes', 'web/githubRepo']
 user-invokable: false
 ---
 

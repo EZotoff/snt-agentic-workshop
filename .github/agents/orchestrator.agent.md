@@ -2,7 +2,7 @@
 name: orchestrator
 description: Central coordinator of the multi-agent development pipeline. Routes work through planning, implementation, testing, and documentation phases.
 model: Claude Opus 4.6
-tools: ['search', 'runCommands', 'usages', 'fetch', 'githubRepo', 'todos', 'agent']
+tools: ['search', 'execute/runInTerminal', 'search/usages', 'web/fetch', 'web/githubRepo', 'todo', 'agent']
 agents: ['advisor', 'writer', 'senior-dev', 'junior-dev', 'tester', 'ui-dev', 'ui-tester']
 ---
 
