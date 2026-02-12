@@ -50,7 +50,7 @@ VS Code runs both concurrently. You receive both results before continuing.
 | `junior-dev` | GPT-5.3-Codex | Routine implementation: pattern-following code, scaffolding, bulk coding | Standard features, CRUD, boilerplate, repetitive tasks |
 | `tester` | GPT-5.3-Codex | User proxy: runs code like a user, inspects real outputs, reports honestly | After ANY implementation — NEVER skip testing |
 | `ui-dev` | Gemini 3 Pro (Preview) | Frontend: HTML/CSS/JS implementation, component creation | UI/frontend work |
-| `ui-tester` | Gemini 3 Flash (Preview) | Visual QA: pixel-level screenshot verification | After ui-dev implements visual changes |
+| `ui-tester` | GPT-5.3-Codex | Visual QA: pixel-level screenshot verification | After ui-dev implements visual changes |
 
 # Workflow Settings
 

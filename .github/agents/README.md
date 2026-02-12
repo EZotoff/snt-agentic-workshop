@@ -8,14 +8,14 @@ The pipeline consists of the Orchestrator and 7 specialized worker agents.
 
 | Agent | Model | Cost Tier | Role |
 |-------|-------|-----------|------|
-| `@orchestrator` | Claude Opus 4.6 | 1x | Central coordinator, phase management |
-| `@advisor` | Claude Opus 4.6 | 1x | Read-only thinker: analyzes requirements, designs architecture |
-| `@senior-dev` | Claude Opus 4.6 | 1x | Complex implementation, junior escalations |
-| `@ui-dev` | Gemini 3 Pro (Preview) | 0.5x | Frontend: HTML/CSS/JS implementation |
-| `@junior-dev` | GPT-5.3-Codex | 0.33x | Routine implementation: pattern-following code |
+| `@orchestrator` | Claude Opus 4.6 | 3x | Central coordinator, phase management |
+| `@advisor` | Claude Opus 4.6 | 3x | Read-only thinker: analyzes requirements, designs architecture |
+| `@senior-dev` | Claude Opus 4.6 | 3x | Complex implementation, junior escalations |
+| `@ui-dev` | Gemini 3 Pro (Preview) | 1x | Frontend: HTML/CSS/JS implementation |
+| `@junior-dev` | GPT-5.3-Codex | 1x | Routine implementation: pattern-following code |
 | `@writer` | Gemini 3 Flash (Preview) | 0.33x | Documentation: proposals, specs, reports |
-| `@tester` | GPT-5.3-Codex | 0.33x | User proxy: runs code, verifies backend/logic |
-| `@ui-tester` | Gemini 3 Flash (Preview) | 0.33x | Visual QA: pixel-level screenshot verification |
+| `@tester` | GPT-5.3-Codex | 1x | User proxy: runs code, verifies backend/logic |
+| `@ui-tester` | GPT-5.3-Codex | 1x | Visual QA: pixel-level screenshot verification |
 
 ## Workflow
 
@@ -69,7 +69,7 @@ UI/UX work uses a specialized two-agent pattern to ensure visual quality:
     │       ├── Verifies DOM structure via browser_snapshot
     │       └── ⚠️ CANNOT see screenshots (Gemini limitation)
     │
-    └──► @ui-tester (Gemini 3 Flash Preview)
+    └──► @ui-tester (GPT-5.3-Codex)
             │
             ├── Takes actual screenshots
             ├── Verifies visual correctness (colors, layout, spacing)
@@ -78,7 +78,7 @@ UI/UX work uses a specialized two-agent pattern to ensure visual quality:
 
 **Why this split?**
 - `@ui-dev` uses **Gemini 3 Pro (Preview)** which excels at generating HTML/CSS code.
-- `@ui-tester` uses **Gemini 3 Flash (Preview)** which can process images for visual QA.
+- `@ui-tester` uses **GPT-5.3-Codex** which can process images for visual QA.
 - Together they ensure code quality AND visual correctness.
 
 ## Parallel Execution
@@ -117,10 +117,12 @@ If a worker agent fails to complete a task after 5 attempts, the Orchestrator es
 
 ## Cost Optimization
 
-The roster relies on a heavy junior/senior split to optimize costs:
-- Routine tasks go to **0.33x** agents (`junior-dev`, `tester`).
-- Complex tasks go to **1x** agents (`senior-dev`, `advisor`).
-- **Savings**: This structure saves approximately **40-50%** compared to an all-senior roster.
+The roster uses a tiered cost structure:
+- **3x** (Opus): `orchestrator`, `advisor`, `senior-dev` — reserved for coordination, analysis, and complex work.
+- **1x** (Codex/Pro): `junior-dev`, `tester`, `ui-dev` — the workhorses for routine implementation and verification.
+- **0.33x** (Flash): `writer` — lightweight agent for documentation.
+- `ui-tester` also uses Codex (1x) since Gemini models are unreliable at reading screenshots.
+- **Savings**: Routing routine work to 1x/0.33x agents saves significantly compared to an all-Opus roster.
 
 ## Configuration Reference
 
