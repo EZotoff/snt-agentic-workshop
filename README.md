@@ -60,7 +60,6 @@ The orchestrator will:
 
 The pipeline follows: Analyze → Implement → Test → Document.
 The `@orchestrator` coordinates everything — you just tell it what you want built.
-Junior agents try first; if they fail 5 times, the advisor analyzes the issue and senior-dev fixes it.
 
 ## License
 
