@@ -2,7 +2,7 @@
 name: ui-tester
 description: Visual QA specialist. Takes pixel-level screenshots and verifies visual correctness that @ui-dev cannot see.
 model: GPT-5.3-Codex
-tools: ['search', 'execute/runInTerminal', 'microsoft/playwright-mcp/browser_click', 'microsoft/playwright-mcp/browser_close', 'microsoft/playwright-mcp/browser_console_messages', 'microsoft/playwright-mcp/browser_drag', 'microsoft/playwright-mcp/browser_evaluate', 'microsoft/playwright-mcp/browser_file_upload', 'microsoft/playwright-mcp/browser_fill_form', 'microsoft/playwright-mcp/browser_handle_dialog', 'microsoft/playwright-mcp/browser_hover', 'microsoft/playwright-mcp/browser_install', 'microsoft/playwright-mcp/browser_navigate', 'microsoft/playwright-mcp/browser_navigate_back', 'microsoft/playwright-mcp/browser_network_requests', 'microsoft/playwright-mcp/browser_press_key', 'microsoft/playwright-mcp/browser_resize', 'microsoft/playwright-mcp/browser_run_code', 'microsoft/playwright-mcp/browser_select_option', 'microsoft/playwright-mcp/browser_snapshot', 'microsoft/playwright-mcp/browser_tabs', 'microsoft/playwright-mcp/browser_take_screenshot', 'microsoft/playwright-mcp/browser_type', 'microsoft/playwright-mcp/browser_wait_for']
+tools: ['search', 'execute/runInTerminal', 'playwright']
 user-invokable: false
 ---
 
