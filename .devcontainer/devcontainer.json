@@ -1,6 +1,6 @@
 {
   "name": "Agentic Workshop",
-  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -9,10 +9,5 @@
       ]
     }
   },
-  "postCreateCommand": "npm install -g @fission-ai/openspec@latest && pip install pytest-playwright flask && playwright install --with-deps chromium",
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "22"
-    }
-  }
+  "postCreateCommand": "npm install -g @fission-ai/openspec@latest && pip install pytest-playwright flask && playwright install --with-deps chromium"
 }
