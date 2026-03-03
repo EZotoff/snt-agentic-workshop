@@ -14,5 +14,5 @@
       ]
     }
   },
-  "postCreateCommand": "npm install -g @fission-ai/openspec@latest && pip install pytest-playwright flask && playwright install --with-deps chromium"
+  "postCreateCommand": "npm install -g @fission-ai/openspec@latest && pip install pytest-playwright flask && playwright install chromium"
 }
