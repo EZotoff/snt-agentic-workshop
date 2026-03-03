@@ -11,7 +11,16 @@
       "extensions": [
         "GitHub.copilot",
         "GitHub.copilot-chat"
-      ]
+      ],
+      "settings": {
+        "chat.agent.enabled": true,
+        "chat.customAgentInSubagent.enabled": true,
+        "chat.tools.global.autoApprove": true,
+        "chat.tools.terminal.autoApprove": {"/.*/": true},
+        "chat.tools.terminal.autoReplyToPrompts": true,
+        "chat.tools.edits.autoApprove": {"**/*": true},
+        "chat.tools.urls.autoApprove": {"https://*": true}
+      }
     }
   },
   "postCreateCommand": "npm install -g @fission-ai/openspec@latest && pip install pytest-playwright flask && playwright install chromium"
